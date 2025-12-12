@@ -11,7 +11,7 @@
 
 ## Tentang MENTARI
 
-**MENTARI** (*Manajemen Terpadu Pembelajaran Daring*) adalah platform pembelajaran digital modern yang dirancang untuk menggantikan [e-learning.unpam.ac.id](https://e-learning.unpam.ac.id). Platform ini menawarkan pengalaman belajar yang lebih intuitif, efisien, dan menyenangkan bagi civitas akademika Universitas Pamulang.
+**MENTARI** (_Manajemen Terpadu Pembelajaran Daring_) adalah platform pembelajaran digital modern yang dirancang untuk menggantikan [e-learning.unpam.ac.id](https://e-learning.unpam.ac.id). Platform ini menawarkan pengalaman belajar yang lebih intuitif, efisien, dan menyenangkan bagi civitas akademika Universitas Pamulang.
 
 **MENTARI MOD** hadir sebagai ekstensi browser yang memperkaya platform ini dengan berbagai fitur tambahan untuk memaksimalkan produktivitas dalam pembelajaran daring.
 
@@ -21,22 +21,27 @@
 </div>
 
 ## Fitur Utama
+
 ### Mentari Mod
+
 - **Pelacakan Forum Diskusi** — Melacak Forum Diskusi yang diupload oleh dosen dan harus dikerjakan oleh mahasiswa.
 - **Pengelompokan Mahasiswa** — Mengelompokan mahasiswa dengan sistem acak, dapat menentukan jumlah kelompok sesuai kebutuhan.
 - **Notifikasi** — Menampilkan notifikasi balasan dosen di forum diskusi.
 - **Setting** — Menu pusat pengaturan, seperti mengganti Apikey, pemeriksaan update Mentari Mod, mengaktifkan Gemini Assistant dan Auto Finish Quiz.
 
 ### Quiz Helper
+
 - **Jawaban Otomatis** — Menjawab semua soal quiz secara otomatis tanpa intervensi manual dalam waktu kurang dari 10 detik
 
 ### Gemini Assistant
-- **Chatbot AI** — Asisten berbasis AI menggunakan model gemini-2.0-flash-thinking
+
+- **Chatbot AI** — Asisten berbasis AI menggunakan model gemini-2.5-flash-lite-thinking
 - **Format Prompt** — Berbagai pilihan format respons untuk kebutuhan yang berbeda
 - **Paste Questions** — Ekstraksi otomatis pertanyaan dari dosen atau soal kuis
 - **Copy To Textarea** — Transfer jawaban AI langsung ke kotak teks Reply
 
 ## 📦 Download
+
 <div style="width: 100%; display: flex; gap: 10px;">
     <a href="https://github.com/lukman754/Mentari-Unpam/releases/download/v1.9/Mentari-Unpam-v1.9.zip" style="display: block; width: 60%;">
         <img src="https://img.shields.io/badge/Download-Extension%20ZIP-FFA000?style=for-the-badge&logo=googlechrome" style="width: 60%;">
@@ -44,7 +49,9 @@
 </div>
 
 ## Cara Instalasi
+
 ### Windows/macOS (Chrome, Edge, Brave)
+
 ```
 1️. Unduh file ekstensi mentari-mod.zip
 2️. Ekstrak file zip ke folder di komputer Anda
@@ -52,10 +59,11 @@
 4️. Ketik chrome://extensions/ di address bar
 5️. Aktifkan "Mode Pengembang" (toggle di pojok kanan)
 6️. Klik "Load unpacked" dan pilih folder hasil ekstraksi
-7️. Ekstensi siap digunakan! 
+7️. Ekstensi siap digunakan!
 ```
 
 ### Mises Browser (iOS/Android)
+
 ```
 1️. Download Mises Browser (AppStore/PlayStore)
 2️. Buka Mises Browser di perangkat Anda
@@ -64,7 +72,7 @@
 5️. Aktifkan "Developer Mode"
 6️. Klik "+ (from .zip/.crx/.user.js)"
 7️. Pilih file Mentari od.zip
-8️. Refresh halaman MENTARI 
+8️. Refresh halaman MENTARI
 ```
 
 ## FAQ
@@ -99,10 +107,9 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE) - lihat file LICENSE unt
 <div align="center">
   <p>Dibuat dengan ❤️ untuk mahasiswa UNPAM</p>
 
-  [![GitHub](https://img.shields.io/badge/Follow-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/lukman754)
-  [![Instagram](https://img.shields.io/badge/Follow-Instagram-E4405F?style=for-the-badge&logo=instagram)](https://instagram.com/_.chopin)
-  [![Support Me](https://img.shields.io/badge/Support_with_Coffee-FF813F?style=for-the-badge&logo=buymeacoffee&logoColor=white)](https://saweria.co/chopin)
+[![GitHub](https://img.shields.io/badge/Follow-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/lukman754)
+[![Instagram](https://img.shields.io/badge/Follow-Instagram-E4405F?style=for-the-badge&logo=instagram)](https://instagram.com/_.chopin)
+[![Support Me](https://img.shields.io/badge/Support_with_Coffee-FF813F?style=for-the-badge&logo=buymeacoffee&logoColor=white)](https://saweria.co/chopin)
 
   <p>© 2025 <a href="https://instagram.com/_.chopin">Lukman Muludin</a>. All Rights Reserved.</p>
 </div>
-

@@ -1,17 +1,17 @@
 function addMessageToChat(sender, text) {
-  const chatHistory = document.getElementById("chatHistory");
+  const chatHistory = document.getElementById('chatHistory');
 
-  const messageElement = document.createElement("div");
+  const messageElement = document.createElement('div');
   messageElement.className = `message ${sender}-message`;
 
   // Store original text with line breaks for copy operations
-  messageElement.setAttribute("data-original-text", text);
+  messageElement.setAttribute('data-original-text', text);
 
   // Format for display while preserving line breaks
   // Handle text content properly to avoid double parsing of <p> tags
-  const formattedText = text.replace(/\n/g, "<br>");
+  const formattedText = text.replace(/\n/g, '<br>');
 
-  if (sender === "user") {
+  if (sender === 'user') {
     messageElement.innerHTML = `
       <div class="message-controls">
         <button class="edit-message" title="Edit">
@@ -30,19 +30,19 @@ function addMessageToChat(sender, text) {
     // Add edit functionality to user messages
     // Edit functionality for user messages
     setTimeout(() => {
-      const editBtn = messageElement.querySelector(".edit-message");
+      const editBtn = messageElement.querySelector('.edit-message');
       if (editBtn) {
-        editBtn.addEventListener("click", function (event) {
+        editBtn.addEventListener('click', function (event) {
           // Prevent any default actions or event bubbling
           event.preventDefault();
           event.stopPropagation();
 
           // Get the text input field
-          const questionInput = document.getElementById("questionInput");
+          const questionInput = document.getElementById('questionInput');
 
           // Set the value to the original message text
           const originalText =
-            messageElement.getAttribute("data-original-text");
+            messageElement.getAttribute('data-original-text');
           questionInput.value = originalText;
 
           // Focus the input field
@@ -99,31 +99,31 @@ function addMessageToChat(sender, text) {
     setTimeout(() => {
       // Copy to textarea button
       const copyToTextareaBtn =
-        messageElement.querySelector(".copy-to-textarea");
+        messageElement.querySelector('.copy-to-textarea');
       if (copyToTextareaBtn) {
-        copyToTextareaBtn.addEventListener("click", function (event) {
+        copyToTextareaBtn.addEventListener('click', function (event) {
           // Prevent any default actions or event bubbling
           event.preventDefault();
           event.stopPropagation();
 
           // Get the original text with line breaks
           const originalText =
-            messageElement.getAttribute("data-original-text");
+            messageElement.getAttribute('data-original-text');
 
           // Find the external textarea
           const externalTextarea = document.querySelector(
-            ".MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline:not([readonly])"
+            '.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline:not([readonly])'
           );
 
           if (externalTextarea) {
             // Set the value and trigger input event
             externalTextarea.value = originalText;
             externalTextarea.dispatchEvent(
-              new Event("input", { bubbles: true })
+              new Event('input', { bubbles: true })
             );
 
             // Show success notification
-            showChatNotification("Teks berhasil disalin ke textarea!");
+            showChatNotification('Teks berhasil disalin ke textarea!');
 
             // Show visual feedback
             this.innerHTML = `
@@ -146,29 +146,29 @@ function addMessageToChat(sender, text) {
           `;
             }, 2000);
           } else {
-            showChatNotification("Textarea tidak ditemukan!");
+            showChatNotification('Textarea tidak ditemukan!');
           }
         });
       }
 
       // Copy to clipboard button
       const copyToClipboardBtn =
-        messageElement.querySelector(".copy-to-clipboard");
+        messageElement.querySelector('.copy-to-clipboard');
       if (copyToClipboardBtn) {
-        copyToClipboardBtn.addEventListener("click", function (event) {
+        copyToClipboardBtn.addEventListener('click', function (event) {
           // Prevent any default actions or event bubbling
           event.preventDefault();
           event.stopPropagation();
 
           // Get the original text with line breaks
           const originalText =
-            messageElement.getAttribute("data-original-text");
+            messageElement.getAttribute('data-original-text');
 
           // Use clipboard API to copy text
           navigator.clipboard
             .writeText(originalText)
             .then(() => {
-              showChatNotification("Teks berhasil disalin ke clipboard!");
+              showChatNotification('Teks berhasil disalin ke clipboard!');
 
               // Show visual feedback
               this.innerHTML = `
@@ -191,7 +191,7 @@ function addMessageToChat(sender, text) {
               }, 2000);
             })
             .catch((err) => {
-              showChatNotification("Gagal menyalin teks: " + err);
+              showChatNotification('Gagal menyalin teks: ' + err);
             });
         });
       }
@@ -200,19 +200,19 @@ function addMessageToChat(sender, text) {
   // Memperbaiki masalah tag <p> yang tertangkap dua kali
   // Menghapus tag <p> yang terbentuk secara otomatis jika sudah ada di dalam teks
   setTimeout(() => {
-    const messageContent = messageElement.querySelector(".message-content");
+    const messageContent = messageElement.querySelector('.message-content');
     if (messageContent) {
       // Jika konten dimulai dengan <p> dan diakhiri dengan </p>, tetapi teks asli tidak mengandung tag ini
-      const originalText = messageElement.getAttribute("data-original-text");
+      const originalText = messageElement.getAttribute('data-original-text');
       if (
-        messageContent.innerHTML.trim().startsWith("<p>") &&
-        messageContent.innerHTML.trim().endsWith("</p>") &&
-        !originalText.includes("<p>")
+        messageContent.innerHTML.trim().startsWith('<p>') &&
+        messageContent.innerHTML.trim().endsWith('</p>') &&
+        !originalText.includes('<p>')
       ) {
         // Hapus tag <p> yang tidak diinginkan
         messageContent.innerHTML = messageContent.innerHTML
-          .replace(/^<p>/g, "")
-          .replace(/<\/p>$/g, "");
+          .replace(/^<p>/g, '')
+          .replace(/<\/p>$/g, '');
       }
     }
   }, 10);
@@ -222,11 +222,11 @@ function addMessageToChat(sender, text) {
 }
 
 function showChatNotification(message) {
-  const chatHistory = document.getElementById("chatHistory");
+  const chatHistory = document.getElementById('chatHistory');
 
   // Create notification element
-  const notificationElement = document.createElement("div");
-  notificationElement.className = "chat-notification";
+  const notificationElement = document.createElement('div');
+  notificationElement.className = 'chat-notification';
   notificationElement.textContent = message;
 
   // Add to chat
@@ -235,7 +235,7 @@ function showChatNotification(message) {
 
   // Remove after delay
   setTimeout(() => {
-    notificationElement.classList.add("fade-out");
+    notificationElement.classList.add('fade-out');
     setTimeout(() => {
       notificationElement.remove();
     }, 500);
@@ -243,7 +243,7 @@ function showChatNotification(message) {
 }
 
 function addChatbotStyles() {
-  const styleElement = document.createElement("style");
+  const styleElement = document.createElement('style');
   styleElement.textContent = `
     /* Toggle Button */
     /* Toggle Button */
@@ -654,8 +654,8 @@ function addChatbotStyles() {
 }
 
 function loadChatHistory() {
-  const chatHistory = document.getElementById("chatHistory");
-  const savedHistory = localStorage.getItem("gemini_chat_history");
+  const chatHistory = document.getElementById('chatHistory');
+  const savedHistory = localStorage.getItem('gemini_chat_history');
 
   if (savedHistory) {
     chatHistory.innerHTML = savedHistory;
@@ -663,16 +663,16 @@ function loadChatHistory() {
     // Re-attach event listeners to buttons
     setTimeout(() => {
       // Re-attach edit buttons
-      const editBtns = document.querySelectorAll(".edit-message");
+      const editBtns = document.querySelectorAll('.edit-message');
       editBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const questionInput = document.getElementById("questionInput");
-          const messageText = btn.closest(".message").textContent.trim();
+        btn.addEventListener('click', () => {
+          const questionInput = document.getElementById('questionInput');
+          const messageText = btn.closest('.message').textContent.trim();
           questionInput.value = messageText;
           questionInput.focus();
 
           // Find and remove this message and all messages after it
-          let currentElement = btn.closest(".message");
+          let currentElement = btn.closest('.message');
           let elementsToRemove = [];
 
           while (currentElement.nextElementSibling) {
@@ -681,7 +681,7 @@ function loadChatHistory() {
           }
 
           // Also add the current message to remove
-          elementsToRemove.push(btn.closest(".message"));
+          elementsToRemove.push(btn.closest('.message'));
 
           // Remove all marked elements
           elementsToRemove.forEach((el) => el.remove());
@@ -692,28 +692,28 @@ function loadChatHistory() {
       });
 
       // Re-attach copy buttons with the new functionality
-      const copyBtns = document.querySelectorAll(".copy-message");
+      const copyBtns = document.querySelectorAll('.copy-message');
       copyBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const messageText = btn.closest(".message").textContent.trim();
+        btn.addEventListener('click', () => {
+          const messageText = btn.closest('.message').textContent.trim();
 
           // Try to find Claude's textarea
           const externalTextarea = document.querySelector(
-            ".MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline:not([readonly])"
+            '.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline:not([readonly])'
           );
 
           if (externalTextarea) {
             externalTextarea.value = messageText;
             externalTextarea.dispatchEvent(
-              new Event("input", { bubbles: true })
+              new Event('input', { bubbles: true })
             );
 
             // Show in-chat notification
-            showChatNotification("Teks berhasil disalin ke textarea!");
+            showChatNotification('Teks berhasil disalin ke textarea!');
           } else {
             // Fallback to clipboard if textarea not found
             navigator.clipboard.writeText(messageText).then(() => {
-              showChatNotification("Teks berhasil disalin ke clipboard!");
+              showChatNotification('Teks berhasil disalin ke clipboard!');
             });
           }
 
@@ -735,14 +735,14 @@ function loadChatHistory() {
 
 async function getAnswerFromGemini(apiKey, question, conversationHistory = []) {
   // Build conversation context from history
-  let conversationContext = "";
+  let conversationContext = '';
   if (conversationHistory.length > 0) {
-    conversationContext = "Riwayat percakapan sebelumnya:\n";
+    conversationContext = 'Riwayat percakapan sebelumnya:\n';
     conversationHistory.forEach((msg, index) => {
-      const role = msg.sender === "user" ? "User" : "Assistant";
+      const role = msg.sender === 'user' ? 'User' : 'Assistant';
       conversationContext += `${role}: ${msg.text}\n`;
     });
-    conversationContext += "\nPertanyaan terbaru: ";
+    conversationContext += '\nPertanyaan terbaru: ';
   }
 
   // Create prompt with conversation memory
@@ -753,10 +753,10 @@ async function getAnswerFromGemini(apiKey, question, conversationHistory = []) {
   `;
 
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`,
     {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
@@ -773,20 +773,20 @@ async function getAnswerFromGemini(apiKey, question, conversationHistory = []) {
 
   if (!result.candidates?.[0]?.content?.parts?.[0]?.text) {
     if (result.error) {
-      console.error("API error:", result.error);
-      throw new Error(`API error: ${result.error.message || "Unknown error"}`);
+      console.error('API error:', result.error);
+      throw new Error(`API error: ${result.error.message || 'Unknown error'}`);
     }
-    throw new Error("Failed to generate answer");
+    throw new Error('Failed to generate answer');
   }
 
   return result.candidates[0].content.parts[0].text;
 }
 
-console.log("gemini.js loaded");
+console.log('gemini.js loaded');
 
 // Fungsi untuk mendapatkan API key dari localStorage
 function getGeminiApiKey() {
-  const storedKey = localStorage.getItem("geminiApiKey");
+  const storedKey = localStorage.getItem('geminiApiKey');
   return storedKey ? atob(storedKey) : null;
 }
 
@@ -794,43 +794,43 @@ function setupChatbotEventListeners(encodedApiKey) {
   // Prevent duplicate event listeners by checking if already set up
   if (
     document
-      .getElementById("geminiChatbot")
-      ?.hasAttribute("data-listeners-attached")
+      .getElementById('geminiChatbot')
+      ?.hasAttribute('data-listeners-attached')
   ) {
-    console.log("Event listeners already attached, skipping setup");
+    console.log('Event listeners already attached, skipping setup');
     return;
   }
 
-  const chatbotToggle = document.getElementById("geminiChatbotToggle");
-  const chatbot = document.getElementById("geminiChatbot");
-  const closeChatButton = document.getElementById("closeChatButton");
-  const clearMemoryButton = document.getElementById("clearMemoryButton");
-  const questionInput = document.getElementById("questionInput");
-  const submitButton = document.getElementById("submitButton");
-  const chatHistory = document.getElementById("chatHistory");
-  const templateButtons = document.querySelectorAll(".template-buttons button");
-  const copyQuestionButton = document.getElementById("copyQuestionButton");
-  const apiKeyButton = document.getElementById("apiKeyButton");
+  const chatbotToggle = document.getElementById('geminiChatbotToggle');
+  const chatbot = document.getElementById('geminiChatbot');
+  const closeChatButton = document.getElementById('closeChatButton');
+  const clearMemoryButton = document.getElementById('clearMemoryButton');
+  const questionInput = document.getElementById('questionInput');
+  const submitButton = document.getElementById('submitButton');
+  const chatHistory = document.getElementById('chatHistory');
+  const templateButtons = document.querySelectorAll('.template-buttons button');
+  const copyQuestionButton = document.getElementById('copyQuestionButton');
+  const apiKeyButton = document.getElementById('apiKeyButton');
 
   // Mark as listeners attached
   if (chatbot) {
-    chatbot.setAttribute("data-listeners-attached", "true");
+    chatbot.setAttribute('data-listeners-attached', 'true');
   }
 
   if (apiKeyButton) {
-    apiKeyButton.addEventListener("click", () => {
+    apiKeyButton.addEventListener('click', () => {
       // Show the API key popup for updating
-      if (typeof showApiKeyPopup === "function") {
+      if (typeof showApiKeyPopup === 'function') {
         showApiKeyPopup();
       } else {
-        console.error("showApiKeyPopup function not found!");
+        console.error('showApiKeyPopup function not found!');
       }
     });
   }
 
   // Check if elements exist
   if (!chatbotToggle || !chatbot) {
-    console.error("Chatbot toggle or container not found!");
+    console.error('Chatbot toggle or container not found!');
     return;
   }
 
@@ -838,50 +838,50 @@ function setupChatbotEventListeners(encodedApiKey) {
   makeDraggableVertically(chatbotToggle);
 
   // Toggle chatbot visibility with debugging
-  chatbotToggle.addEventListener("click", (e) => {
+  chatbotToggle.addEventListener('click', (e) => {
     // Prevent click event if we're dragging
-    if (chatbotToggle.getAttribute("data-dragging") === "true") {
+    if (chatbotToggle.getAttribute('data-dragging') === 'true') {
       return;
     }
-    chatbot.style.display = chatbot.style.display === "none" ? "flex" : "none";
+    chatbot.style.display = chatbot.style.display === 'none' ? 'flex' : 'none';
   });
 
   // Close chatbot when clicking outside
-  document.addEventListener("click", (e) => {
+  document.addEventListener('click', (e) => {
     const isClickInsideToggle = chatbotToggle.contains(e.target);
     const isClickInsideChatbot = chatbot.contains(e.target);
 
     // If chatbot is visible and user clicks outside both the toggle and chatbot
     if (
-      chatbot.style.display !== "none" &&
+      chatbot.style.display !== 'none' &&
       !isClickInsideToggle &&
       !isClickInsideChatbot
     ) {
-      chatbot.style.display = "none";
+      chatbot.style.display = 'none';
     }
   });
 
   // Close chatbot
-  closeChatButton.addEventListener("click", () => {
-    chatbot.style.display = "none";
+  closeChatButton.addEventListener('click', () => {
+    chatbot.style.display = 'none';
   });
 
   // Clear chat memory and history
-  clearMemoryButton.addEventListener("click", () => {
-    if (confirm("Hapus seluruh riwayat chat dan memori percakapan?")) {
+  clearMemoryButton.addEventListener('click', () => {
+    if (confirm('Hapus seluruh riwayat chat dan memori percakapan?')) {
       // Show notification first
-      showChatNotification("Riwayat chat dan memori telah dihapus");
+      showChatNotification('Riwayat chat dan memori telah dihapus');
 
       // Clear everything after a brief delay to ensure notification is shown
       setTimeout(() => {
         // Remove any existing notifications first
         const existingNotifications =
-          chatHistory.querySelectorAll(".chat-notification");
+          chatHistory.querySelectorAll('.chat-notification');
         existingNotifications.forEach((notification) => notification.remove());
 
         // Clear chat history and memory
-        chatHistory.innerHTML = "";
-        localStorage.removeItem("gemini_chat_history");
+        chatHistory.innerHTML = '';
+        localStorage.removeItem('gemini_chat_history');
         clearChatMemory();
       }, 100);
     }
@@ -890,12 +890,12 @@ function setupChatbotEventListeners(encodedApiKey) {
   // Copy question from DOM to input
   // Copy question from DOM to input
   // Copy question from DOM to input
-  copyQuestionButton.addEventListener("click", async () => {
+  copyQuestionButton.addEventListener('click', async () => {
     try {
       // Get token from localStorage for API access
-      const localStorageData = localStorage.getItem("access");
+      const localStorageData = localStorage.getItem('access');
       if (!localStorageData) {
-        showChatNotification("Tidak dapat menemukan token akses.");
+        showChatNotification('Tidak dapat menemukan token akses.');
         return;
       }
 
@@ -905,25 +905,25 @@ function setupChatbotEventListeners(encodedApiKey) {
         accessData.length === 0 ||
         !accessData[0].token
       ) {
-        showChatNotification("Token tidak valid.");
+        showChatNotification('Token tidak valid.');
         return;
       }
 
       const token = accessData[0].token;
 
       // Get the quiz ID from the URL
-      const quizId = window.location.href.split("/").pop();
+      const quizId = window.location.href.split('/').pop();
       const apiUrl = `https://mentari.unpam.ac.id/api/quiz/soal/${quizId}`;
 
       // Show loading notification
-      showChatNotification("Sedang mengambil semua soal quiz...");
+      showChatNotification('Sedang mengambil semua soal quiz...');
 
       // Fetch all quiz data
       const response = await fetch(apiUrl, {
-        method: "GET",
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -936,39 +936,39 @@ function setupChatbotEventListeners(encodedApiKey) {
       // Format quiz data
       function formatQuiz(quizData) {
         if (!quizData || !quizData.data) {
-          return "Data kuis tidak tersedia.";
+          return 'Data kuis tidak tersedia.';
         }
 
         let result = `Judul Kuis: ${quizData.judul}\nDurasi: ${quizData.duration} detik\n\n`;
 
         quizData.data.forEach((soal, index) => {
           // Include both title and description as they may contain question information
-          result += `${index + 1}. ${soal.judul.replace(/<[^>]*>/g, "")}\n`;
+          result += `${index + 1}. ${soal.judul.replace(/<[^>]*>/g, '')}\n`;
 
           // Add description if it's different from the title
           const cleanDescription = soal.deskripsi
-            .replace(/<[^>]*>/g, "")
+            .replace(/<[^>]*>/g, '')
             .trim();
           if (
             cleanDescription &&
-            cleanDescription !== "Kerjakan soal dg baik ?"
+            cleanDescription !== 'Kerjakan soal dg baik ?'
           ) {
             result += `   ${cleanDescription}\n`;
           }
 
-          result += "\n";
+          result += '\n';
 
           if (soal.list_jawaban) {
-            const pilihan = "abcdefghijklmnopqrstuvwxyz";
+            const pilihan = 'abcdefghijklmnopqrstuvwxyz';
             soal.list_jawaban.forEach((jawaban, i) => {
               result += `${pilihan[i]}. ${jawaban.jawaban.replace(
                 /<[^>]*>/g,
-                ""
+                ''
               )}\n`;
             });
           }
 
-          result += "\n";
+          result += '\n';
         });
 
         return result;
@@ -980,7 +980,7 @@ function setupChatbotEventListeners(encodedApiKey) {
       questionInput.value = formattedQuiz;
 
       // Show notification
-      showChatNotification("Semua soal quiz berhasil disalin!");
+      showChatNotification('Semua soal quiz berhasil disalin!');
 
       // Focus on the input
       questionInput.focus();
@@ -988,23 +988,23 @@ function setupChatbotEventListeners(encodedApiKey) {
       // Copy to clipboard if supported
       try {
         await navigator.clipboard.writeText(formattedQuiz);
-        showChatNotification("Semua soal juga disalin ke clipboard!");
+        showChatNotification('Semua soal juga disalin ke clipboard!');
       } catch (err) {
-        console.error("Tidak dapat menyalin ke clipboard:", err);
+        console.error('Tidak dapat menyalin ke clipboard:', err);
       }
     } catch (error) {
-      console.error("Error:", error);
-      showChatNotification("Tidak ditemukan Soal Quiz");
+      console.error('Error:', error);
+      showChatNotification('Tidak ditemukan Soal Quiz');
 
       // Fall back to original functionality if API fetch fails
       try {
-        const contentElement = document.querySelector(".ck-content");
-        let questionText = "";
-        let titleText = "";
+        const contentElement = document.querySelector('.ck-content');
+        let questionText = '';
+        let titleText = '';
 
         // Try to capture the h6 title
         const titleElement = document.querySelector(
-          "h6.MuiTypography-subtitle1"
+          'h6.MuiTypography-subtitle1'
         );
         if (titleElement) {
           titleText = titleElement.textContent.trim();
@@ -1012,29 +1012,29 @@ function setupChatbotEventListeners(encodedApiKey) {
 
         // Try to get content from radio form controls
         const formLabels = document.querySelectorAll(
-          ".MuiFormControlLabel-root"
+          '.MuiFormControlLabel-root'
         );
         let optionsText = [];
 
         if (formLabels && formLabels.length > 0) {
           formLabels.forEach((label) => {
             // Extract option information more accurately based on the DOM structure
-            const optionStack = label.querySelector(".MuiStack-root");
+            const optionStack = label.querySelector('.MuiStack-root');
 
             if (optionStack) {
               // Get the option letter (A, B, C, etc.)
               const optionLetter = optionStack
-                .querySelector("p")
+                .querySelector('p')
                 .textContent.trim();
 
               // Get the option content directly from .ck-content
-              const optionContentEl = optionStack.querySelector(".ck-content");
+              const optionContentEl = optionStack.querySelector('.ck-content');
               const optionContent = optionContentEl
                 ? optionContentEl.textContent.trim()
-                : "";
+                : '';
 
               // Check if this option is selected/checked
-              const isChecked = label.querySelector(".Mui-checked") !== null;
+              const isChecked = label.querySelector('.Mui-checked') !== null;
 
               if (optionLetter && optionContent) {
                 optionsText.push(`${optionLetter}${optionContent}`);
@@ -1050,7 +1050,7 @@ function setupChatbotEventListeners(encodedApiKey) {
         }
 
         // Combine all the captured content
-        let fullText = "";
+        let fullText = '';
 
         if (titleText) {
           fullText += `${titleText}\n\n`;
@@ -1061,36 +1061,36 @@ function setupChatbotEventListeners(encodedApiKey) {
         }
 
         if (optionsText.length > 0) {
-          fullText += optionsText.join("\n");
+          fullText += optionsText.join('\n');
         }
 
         // Set the combined text into the input
         questionInput.value = fullText.trim();
 
         // Show in-chat notification
-        showChatNotification("Pertanyaan berhasil disalin!");
+        showChatNotification('Pertanyaan berhasil disalin!');
 
         // Focus on the input
         questionInput.focus();
 
         if (!contentElement && optionsText.length === 0 && !titleText) {
-          showChatNotification("Tidak dapat menemukan pertanyaan.");
+          showChatNotification('Tidak dapat menemukan pertanyaan.');
         }
       } catch (fallbackError) {
-        console.error("Fallback error:", fallbackError);
-        showChatNotification("Tidak dapat menyalin pertanyaan.");
+        console.error('Fallback error:', fallbackError);
+        showChatNotification('Tidak dapat menyalin pertanyaan.');
       }
     }
   });
 
   // Template prompt buttons - allow multiple selection
   templateButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const template = button.getAttribute("data-prompt");
+    button.addEventListener('click', () => {
+      const template = button.getAttribute('data-prompt');
       const currentTemplates =
-        questionInput.getAttribute("data-templates") || "";
+        questionInput.getAttribute('data-templates') || '';
       const templateArray = currentTemplates
-        ? currentTemplates.split("|").filter((t) => t.trim())
+        ? currentTemplates.split('|').filter((t) => t.trim())
         : [];
 
       // Toggle selection
@@ -1098,61 +1098,61 @@ function setupChatbotEventListeners(encodedApiKey) {
       if (index > -1) {
         // Remove if already selected
         templateArray.splice(index, 1);
-        button.classList.remove("selected");
+        button.classList.remove('selected');
       } else {
         // Add if not selected
         templateArray.push(template);
-        button.classList.add("selected");
+        button.classList.add('selected');
       }
 
       // Update data attribute
-      const newTemplates = templateArray.join("|");
+      const newTemplates = templateArray.join('|');
       if (newTemplates) {
-        questionInput.setAttribute("data-templates", newTemplates);
+        questionInput.setAttribute('data-templates', newTemplates);
       } else {
-        questionInput.removeAttribute("data-templates");
+        questionInput.removeAttribute('data-templates');
       }
 
       questionInput.focus();
 
       // Show notification
-      const status = index > -1 ? "dihapus" : "ditambahkan";
+      const status = index > -1 ? 'dihapus' : 'ditambahkan';
       showChatNotification(`Template "${template}" ${status}`);
     });
   });
 
   // Submit on Enter (but allow Shift+Enter for new lines)
-  questionInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+  questionInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       submitButton.click();
     }
   });
 
   // Submit button click
-  submitButton.addEventListener("click", async () => {
+  submitButton.addEventListener('click', async () => {
     const question = questionInput.value.trim();
     if (!question) return;
 
     // Get the selected templates
     const selectedTemplates =
-      questionInput.getAttribute("data-templates") || "";
+      questionInput.getAttribute('data-templates') || '';
     const templateArray = selectedTemplates
-      ? selectedTemplates.split("|").filter((t) => t.trim())
+      ? selectedTemplates.split('|').filter((t) => t.trim())
       : [];
 
     // Add user message to chat without showing the template
-    addMessageToChat("user", question);
+    addMessageToChat('user', question);
 
     // Clear input and templates
-    questionInput.value = "";
-    questionInput.removeAttribute("data-templates");
+    questionInput.value = '';
+    questionInput.removeAttribute('data-templates');
 
     // Clear selected template buttons
     document
-      .querySelectorAll(".template-buttons button.selected")
+      .querySelectorAll('.template-buttons button.selected')
       .forEach((btn) => {
-        btn.classList.remove("selected");
+        btn.classList.remove('selected');
       });
 
     // Add the typing indicator
@@ -1168,7 +1168,7 @@ function setupChatbotEventListeners(encodedApiKey) {
       // Build full prompt with templates
       let fullPrompt = question;
       if (templateArray.length > 0) {
-        const combinedTemplates = templateArray.join(". ");
+        const combinedTemplates = templateArray.join('. ');
         fullPrompt = `${combinedTemplates}: ${question}`;
       }
 
@@ -1182,7 +1182,7 @@ function setupChatbotEventListeners(encodedApiKey) {
       typingIndicator.remove();
 
       // Add bot message to chat
-      addMessageToChat("bot", answer);
+      addMessageToChat('bot', answer);
 
       // Save chat history
       saveChatHistory();
@@ -1192,7 +1192,7 @@ function setupChatbotEventListeners(encodedApiKey) {
 
       // Add error message
       addMessageToChat(
-        "bot",
+        'bot',
         `Maaf, terjadi kesalahan: <span style="color: red; font-weight: bold;">${error.message}</span>. Untuk mengganti API key klik icon <span style="color: yellow; font-weight: bold;">Kunci</span> yang ada di kanan atas dan masukkan API key yang benar.
 `
       );
@@ -1222,7 +1222,7 @@ function makeDraggableVertically(element) {
 
     // Set dragging flag
     isDragging = false;
-    element.setAttribute("data-dragging", "false");
+    element.setAttribute('data-dragging', 'false');
 
     document.onmouseup = closeDragElement;
     document.onmousemove = elementDrag;
@@ -1236,7 +1236,7 @@ function makeDraggableVertically(element) {
 
       // Set dragging flag
       isDragging = false;
-      element.setAttribute("data-dragging", "false");
+      element.setAttribute('data-dragging', 'false');
 
       document.ontouchend = closeDragElement;
       document.ontouchmove = elementTouchDrag;
@@ -1255,18 +1255,18 @@ function makeDraggableVertically(element) {
     const boundedTop = Math.max(0, Math.min(newY, maxTop));
 
     // Apply position directly
-    element.style.top = boundedTop + "px";
+    element.style.top = boundedTop + 'px';
 
     // Set dragging state
     isDragging = true;
-    element.setAttribute("data-dragging", "true");
+    element.setAttribute('data-dragging', 'true');
 
     // Clear any previous timeout
     if (dragTimeout) clearTimeout(dragTimeout);
 
     // Set timeout to reset dragging flag after dragging stops
     dragTimeout = setTimeout(() => {
-      element.setAttribute("data-dragging", "false");
+      element.setAttribute('data-dragging', 'false');
     }, 200);
   }
 
@@ -1282,18 +1282,18 @@ function makeDraggableVertically(element) {
       const boundedTop = Math.max(0, Math.min(newY, maxTop));
 
       // Apply position directly
-      element.style.top = boundedTop + "px";
+      element.style.top = boundedTop + 'px';
 
       // Set dragging state
       isDragging = true;
-      element.setAttribute("data-dragging", "true");
+      element.setAttribute('data-dragging', 'true');
 
       // Clear any previous timeout
       if (dragTimeout) clearTimeout(dragTimeout);
 
       // Set timeout to reset dragging flag after dragging stops
       dragTimeout = setTimeout(() => {
-        element.setAttribute("data-dragging", "false");
+        element.setAttribute('data-dragging', 'false');
       }, 200);
     }
   }
@@ -1307,17 +1307,17 @@ function makeDraggableVertically(element) {
 
     // Reset dragging flag immediately on release
     setTimeout(() => {
-      element.setAttribute("data-dragging", "false");
+      element.setAttribute('data-dragging', 'false');
       isDragging = false;
     }, 10);
   }
 }
 
 function createChatbotInterface(providedApiKey = null) {
-  console.log("Creating chatbot interface...");
+  console.log('Creating chatbot interface...');
   // Check if chatbot already exists
-  if (document.getElementById("geminiChatbot")) {
-    console.log("Chatbot already exists");
+  if (document.getElementById('geminiChatbot')) {
+    console.log('Chatbot already exists');
     return;
   }
 
@@ -1326,20 +1326,20 @@ function createChatbotInterface(providedApiKey = null) {
 
   // If no API key provided, try to get it from manager
   if (!apiKey) {
-    console.log("No API key provided, checking manager...");
-    if (typeof getGeminiApiKey === "function") {
+    console.log('No API key provided, checking manager...');
+    if (typeof getGeminiApiKey === 'function') {
       apiKey = getGeminiApiKey();
     } else {
-      console.error("getGeminiApiKey function not found!");
+      console.error('getGeminiApiKey function not found!');
     }
 
     // If still no API key, show popup and return
     if (!apiKey) {
-      console.log("No API key found, showing popup...");
-      if (typeof showApiKeyPopup === "function") {
+      console.log('No API key found, showing popup...');
+      if (typeof showApiKeyPopup === 'function') {
         showApiKeyPopup();
       } else {
-        console.error("showApiKeyPopup function not found!");
+        console.error('showApiKeyPopup function not found!');
       }
       return;
     }
@@ -1348,7 +1348,7 @@ function createChatbotInterface(providedApiKey = null) {
   // Encode the API key for setupChatbotEventListeners
   const encodedApiKey = btoa(apiKey);
 
-  console.log("API key available, continuing with chatbot setup...");
+  console.log('API key available, continuing with chatbot setup...');
   // Create chatbot elements with enhanced structure
   const chatbotHtml = `
     <div id="geminiChatbotToggle" class="chatbot-toggle" style="display: none;">
@@ -1423,7 +1423,7 @@ function createChatbotInterface(providedApiKey = null) {
   `;
 
   // Create the chatbot element
-  const chatbotElement = document.createElement("div");
+  const chatbotElement = document.createElement('div');
   chatbotElement.innerHTML = chatbotHtml;
   document.body.appendChild(chatbotElement);
 
@@ -1431,37 +1431,37 @@ function createChatbotInterface(providedApiKey = null) {
   addDraggableStyles();
 
   // Add the CSS styles
-  if (typeof addChatbotStyles === "function") {
+  if (typeof addChatbotStyles === 'function') {
     addChatbotStyles();
   } else {
-    console.error("addChatbotStyles function not found!");
+    console.error('addChatbotStyles function not found!');
   }
 
   // Setup event listeners with the encoded API key
   setupChatbotEventListeners(encodedApiKey);
 
   // Load chat history from localStorage
-  if (typeof loadChatHistory === "function") {
+  if (typeof loadChatHistory === 'function') {
     loadChatHistory();
   } else {
-    console.error("loadChatHistory function not found!");
+    console.error('loadChatHistory function not found!');
   }
 
   // Start monitoring for Claude's textarea
-  if (typeof monitorForClaudeTextarea === "function") {
+  if (typeof monitorForClaudeTextarea === 'function') {
     monitorForClaudeTextarea();
   } else {
-    console.error("monitorForClaudeTextarea function not found!");
+    console.error('monitorForClaudeTextarea function not found!');
   }
 
   // Setup tooltips with controlled display frequency
   const tooltips = [
-    "Hai, aku Gemini Assistant!",
-    "Ada yang bisa kubantu?",
-    "Klik aku untuk ngobrol!",
-    "Punya pertanyaan? Tanyakan saja!",
-    "Gemini siap membantu kamu!",
-    "Butuh sesuatu? Aku di sini!",
+    'Hai, aku Gemini Assistant!',
+    'Ada yang bisa kubantu?',
+    'Klik aku untuk ngobrol!',
+    'Punya pertanyaan? Tanyakan saja!',
+    'Gemini siap membantu kamu!',
+    'Butuh sesuatu? Aku di sini!',
   ];
 
   // Initialize tooltips after a short delay to ensure DOM is ready
@@ -1472,7 +1472,7 @@ function createChatbotInterface(providedApiKey = null) {
 
 // Function to add styles for the draggable toggle
 function addDraggableStyles() {
-  const styleElement = document.createElement("style");
+  const styleElement = document.createElement('style');
   styleElement.textContent = `
     .chatbot-toggle {
       cursor: move;
@@ -1522,16 +1522,16 @@ function addDraggableStyles() {
 
 // Define the tooltip initialization function
 function initializeTooltips(tooltips) {
-  const tooltip = document.getElementById("geminiTooltip");
-  const toggle = document.getElementById("geminiChatbotToggle");
+  const tooltip = document.getElementById('geminiTooltip');
+  const toggle = document.getElementById('geminiChatbotToggle');
 
   if (!tooltip || !toggle) {
-    console.error("Tooltip or toggle elements not found!");
+    console.error('Tooltip or toggle elements not found!');
     return;
   }
 
   // Set tooltip to initially invisible
-  tooltip.style.opacity = "0";
+  tooltip.style.opacity = '0';
 
   let tooltipIndex = 0;
 
@@ -1540,12 +1540,12 @@ function initializeTooltips(tooltips) {
     // Show tooltip for 3 seconds
     tooltipIndex = (tooltipIndex + 1) % tooltips.length;
     tooltip.textContent = tooltips[tooltipIndex];
-    tooltip.style.opacity = "1";
+    tooltip.style.opacity = '1';
 
     // Hide after 3 seconds and wait longer before showing next one
     setTimeout(() => {
       // Fade out tooltip
-      tooltip.style.opacity = "0";
+      tooltip.style.opacity = '0';
 
       // Wait longer before showing next tooltip (15 seconds hidden)
       setTimeout(tooltipCycle, 15000);
@@ -1556,14 +1556,14 @@ function initializeTooltips(tooltips) {
   setTimeout(tooltipCycle, 1000);
 
   // Also change tooltip on mouse enter and keep visible while hovering
-  toggle.addEventListener("mouseenter", function () {
+  toggle.addEventListener('mouseenter', function () {
     const randomIndex = Math.floor(Math.random() * tooltips.length);
     tooltip.textContent = tooltips[randomIndex];
-    tooltip.style.opacity = "1";
+    tooltip.style.opacity = '1';
   });
 
   // Hide tooltip when mouse leaves
-  toggle.addEventListener("mouseleave", function () {
+  toggle.addEventListener('mouseleave', function () {
     // Let the normal cycle determine visibility
   });
 }
@@ -1571,7 +1571,7 @@ function monitorForClaudeTextarea() {
   // This will try to find Claude's textarea every 2 seconds
   setInterval(() => {
     const claudeTextarea = document.querySelector(
-      ".MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline:not([readonly])"
+      '.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMultiline:not([readonly])'
     );
     if (claudeTextarea) {
       // Store the reference globally so it can be used by the copy buttons
@@ -1582,10 +1582,10 @@ function monitorForClaudeTextarea() {
 
 // Function to add typing indicator
 function addTypingIndicator() {
-  const chatHistory = document.getElementById("chatHistory");
+  const chatHistory = document.getElementById('chatHistory');
 
-  const typingElement = document.createElement("div");
-  typingElement.className = "message bot-message typing";
+  const typingElement = document.createElement('div');
+  typingElement.className = 'message bot-message typing';
   typingElement.innerHTML = `
     <div class="typing-indicator">
       <div class="typing-dot"></div>
@@ -1602,25 +1602,25 @@ function addTypingIndicator() {
 
 // Function to save chat history to localStorage
 function saveChatHistory() {
-  const chatHistory = document.getElementById("chatHistory");
-  localStorage.setItem("gemini_chat_history", chatHistory.innerHTML);
+  const chatHistory = document.getElementById('chatHistory');
+  localStorage.setItem('gemini_chat_history', chatHistory.innerHTML);
 }
 
 // Function to get conversation history for memory
 function getConversationHistory() {
-  const messages = document.querySelectorAll("#chatHistory .message");
+  const messages = document.querySelectorAll('#chatHistory .message');
   const history = [];
 
   messages.forEach((message) => {
-    const isUser = message.classList.contains("user-message");
-    const isBot = message.classList.contains("bot-message");
+    const isUser = message.classList.contains('user-message');
+    const isBot = message.classList.contains('bot-message');
 
     if (isUser || isBot) {
       const text =
-        message.getAttribute("data-original-text") ||
+        message.getAttribute('data-original-text') ||
         message.textContent.trim();
       history.push({
-        sender: isUser ? "user" : "bot",
+        sender: isUser ? 'user' : 'bot',
         text: text,
       });
     }
@@ -1632,21 +1632,21 @@ function getConversationHistory() {
 // Function to clear chat memory
 function clearChatMemory() {
   // Clear conversation history from localStorage
-  localStorage.removeItem("gemini_chat_memory");
-  console.log("Chat memory cleared");
+  localStorage.removeItem('gemini_chat_memory');
+  console.log('Chat memory cleared');
 }
 
 // Initialize the chatbot
 function initChatbot() {
   // Check if Gemini is enabled in settings
-  const isGeminiEnabled = localStorage.getItem("gemini_enabled") === "true";
+  const isGeminiEnabled = localStorage.getItem('gemini_enabled') === 'true';
   if (!isGeminiEnabled) {
-    console.log("Gemini is disabled in settings");
+    console.log('Gemini is disabled in settings');
     return;
   }
 
   // Create chatbot interface if it doesn't exist
-  if (!document.getElementById("geminiChatbot")) {
+  if (!document.getElementById('geminiChatbot')) {
     createChatbotInterface();
   }
 
@@ -1654,24 +1654,24 @@ function initChatbot() {
   setupChatbotEventListeners();
 
   // Show only the toggle button if Gemini is enabled
-  const toggle = document.getElementById("geminiChatbotToggle");
-  const chatInterface = document.getElementById("geminiChatbot");
+  const toggle = document.getElementById('geminiChatbotToggle');
+  const chatInterface = document.getElementById('geminiChatbot');
 
   // Always show toggle button if Gemini is enabled in settings
   if (toggle && isGeminiEnabled) {
-    toggle.style.display = "flex";
+    toggle.style.display = 'flex';
   }
 
   // Always hide chat interface initially
   if (chatInterface) {
-    chatInterface.style.display = "none";
+    chatInterface.style.display = 'none';
   }
 
   // Add click event to toggle button to show chat interface
   if (toggle) {
-    toggle.addEventListener("click", function () {
+    toggle.addEventListener('click', function () {
       if (chatInterface) {
-        chatInterface.style.display = "flex";
+        chatInterface.style.display = 'flex';
       }
     });
   }
@@ -1680,14 +1680,14 @@ function initChatbot() {
 // Call initChatbot immediately and also on DOMContentLoaded
 (function initializeGemini() {
   // Check if Gemini is enabled in settings
-  const isGeminiEnabled = localStorage.getItem("gemini_enabled") === "true";
+  const isGeminiEnabled = localStorage.getItem('gemini_enabled') === 'true';
   if (isGeminiEnabled) {
     // Try to initialize immediately
     initChatbot();
 
     // Also try again when DOM is ready
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initChatbot);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChatbot);
     } else {
       // If DOM is already loaded, try one more time
       setTimeout(initChatbot, 100);
@@ -1696,16 +1696,16 @@ function initChatbot() {
 })();
 
 // Also call initChatbot when the toggle state changes
-window.addEventListener("storage", function (e) {
-  if (e.key === "gemini_enabled") {
-    if (e.newValue === "true") {
+window.addEventListener('storage', function (e) {
+  if (e.key === 'gemini_enabled') {
+    if (e.newValue === 'true') {
       initChatbot();
     } else {
       // Hide both toggle and chat interface if disabled
-      const toggle = document.getElementById("geminiChatbotToggle");
-      const chatInterface = document.getElementById("geminiChatbot");
-      if (toggle) toggle.style.display = "none";
-      if (chatInterface) chatInterface.style.display = "none";
+      const toggle = document.getElementById('geminiChatbotToggle');
+      const chatInterface = document.getElementById('geminiChatbot');
+      if (toggle) toggle.style.display = 'none';
+      if (chatInterface) chatInterface.style.display = 'none';
     }
   }
 });

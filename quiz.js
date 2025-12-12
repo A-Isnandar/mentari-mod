@@ -4,16 +4,16 @@
   // Replace the hardcoded API key with this function
   function getGeminiApiKey() {
     // First try to get the API key from apiKeyManager
-    const storedApiKey = localStorage.getItem("geminiApiKey");
+    const storedApiKey = localStorage.getItem('geminiApiKey');
 
     if (storedApiKey) {
       return atob(storedApiKey);
     }
 
     // If not found in localStorage, show an error
-    const errorMsg = document.createElement("div");
+    const errorMsg = document.createElement('div');
     errorMsg.style =
-      "position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#f44336;color:white;padding:12px 20px;border-radius:6px;box-shadow:0 3px 15px rgba(0,0,0,0.3);z-index:10000;font-family:system-ui;";
+      'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#f44336;color:white;padding:12px 20px;border-radius:6px;box-shadow:0 3px 15px rgba(0,0,0,0.3);z-index:10000;font-family:system-ui;';
     errorMsg.innerHTML = `<div style="display:flex;align-items:center;gap:10px;">
     <span>❌</span>
     <span>API Key tidak ditemukan. Pastikan Anda telah mengatur API Key di ApiKeyManager.</span>
@@ -21,25 +21,25 @@
     document.body.appendChild(errorMsg);
 
     setTimeout(() => {
-      errorMsg.style.opacity = "0";
-      errorMsg.style.transition = "opacity 0.5s ease";
+      errorMsg.style.opacity = '0';
+      errorMsg.style.transition = 'opacity 0.5s ease';
       setTimeout(() => errorMsg.remove(), 500);
     }, 5000);
 
-    throw new Error("Gemini API Key not found in localStorage");
+    throw new Error('Gemini API Key not found in localStorage');
   }
 
   try {
     const GEMINI_API_KEY = getGeminiApiKey();
 
     function createPopup() {
-      const popup = document.createElement("div");
+      const popup = document.createElement('div');
       popup.style =
-        "position:fixed;z-index:10000;min-width:300px;max-width:450px;width:auto;top:20px;right:20px;background:#1e1e1e;color:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.5);font-family:system-ui;font-size:13px;border:1px solid #333;overflow:hidden;";
+        'position:fixed;z-index:10000;min-width:300px;max-width:450px;width:auto;top:20px;right:20px;background:#1e1e1e;color:#fff;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.5);font-family:system-ui;font-size:13px;border:1px solid #333;overflow:hidden;';
 
-      const header = document.createElement("div");
+      const header = document.createElement('div');
       header.style =
-        "padding:10px 14px;background:#2a2a2a;color:#fff;cursor:move;user-select:none;display:flex;justify-content:space-between;align-items:center;font-weight:500;border-bottom:1px solid #333;";
+        'padding:10px 14px;background:#2a2a2a;color:#fff;cursor:move;user-select:none;display:flex;justify-content:space-between;align-items:center;font-weight:500;border-bottom:1px solid #333;';
       header.innerHTML = `
         <div>Quiz Helper</div>
         <div style="display:flex;gap:8px;">
@@ -48,12 +48,12 @@
         </div>
       `;
 
-      const content = document.createElement("div");
-      content.id = "popup-content";
-      content.style = "padding:12px;max-height:500px;overflow-y:auto;";
+      const content = document.createElement('div');
+      content.id = 'popup-content';
+      content.style = 'padding:12px;max-height:500px;overflow-y:auto;';
 
       // Add hover effects for buttons
-      const style = document.createElement("style");
+      const style = document.createElement('style');
       style.textContent = `
         #toggle-popup:hover, #close-popup:hover { color: #fff !important; }
         .q-tooltip { background: #2a2a2a !important; border-color: #333 !important; }
@@ -68,40 +68,40 @@
       let isDragging = false;
       let offsetX, offsetY;
 
-      header.addEventListener("mousedown", (e) => {
+      header.addEventListener('mousedown', (e) => {
         isDragging = true;
         offsetX = e.clientX - popup.getBoundingClientRect().left;
         offsetY = e.clientY - popup.getBoundingClientRect().top;
       });
 
-      document.addEventListener("mousemove", (e) => {
+      document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        popup.style.left = e.clientX - offsetX + "px";
-        popup.style.top = e.clientY - offsetY + "px";
-        popup.style.right = "auto";
+        popup.style.left = e.clientX - offsetX + 'px';
+        popup.style.top = e.clientY - offsetY + 'px';
+        popup.style.right = 'auto';
       });
 
-      document.addEventListener("mouseup", () => (isDragging = false));
+      document.addEventListener('mouseup', () => (isDragging = false));
 
       let isOpen = true;
       let contentHeight = null;
 
-      document.getElementById("toggle-popup").addEventListener("click", () => {
+      document.getElementById('toggle-popup').addEventListener('click', () => {
         if (isOpen) {
           contentHeight = content.scrollHeight;
-          content.style.display = "none";
-          document.getElementById("toggle-popup").textContent = "+";
+          content.style.display = 'none';
+          document.getElementById('toggle-popup').textContent = '+';
         } else {
-          content.style.display = "block";
-          popup.style.height = "auto";
-          document.getElementById("toggle-popup").textContent = "−";
+          content.style.display = 'block';
+          popup.style.height = 'auto';
+          document.getElementById('toggle-popup').textContent = '−';
         }
         isOpen = !isOpen;
       });
 
       document
-        .getElementById("close-popup")
-        .addEventListener("click", () => popup.remove());
+        .getElementById('close-popup')
+        .addEventListener('click', () => popup.remove());
 
       return {
         element: popup,
@@ -110,8 +110,8 @@
       };
     }
 
-    document.getElementById("auto-answer")?.addEventListener("change", () => {
-      if (document.getElementById("auto-answer").checked) {
+    document.getElementById('auto-answer')?.addEventListener('change', () => {
+      if (document.getElementById('auto-answer').checked) {
         sequentiallyAnswerAllQuestions();
       } else if (autoAnswerTimer) {
         clearInterval(autoAnswerTimer);
@@ -120,54 +120,54 @@
     });
 
     function cleanText(html) {
-      if (!html) return "";
+      if (!html) return '';
 
-      const div = document.createElement("div");
+      const div = document.createElement('div');
       div.innerHTML = html;
 
-      const tables = div.querySelectorAll("table");
+      const tables = div.querySelectorAll('table');
       tables.forEach((table) => {
-        let tableText = "\n==TABLE==\n";
-        const rows = table.querySelectorAll("tr");
+        let tableText = '\n==TABLE==\n';
+        const rows = table.querySelectorAll('tr');
 
         rows.forEach((row, idx) => {
-          const cells = row.querySelectorAll("td, th");
+          const cells = row.querySelectorAll('td, th');
           const rowText = Array.from(cells)
             .map((cell) => cell.textContent.trim())
-            .join(" | ");
-          tableText += rowText + "\n";
-          if (idx === 0 && row.querySelectorAll("th").length > 0) {
-            tableText += "-".repeat(rowText.length) + "\n";
+            .join(' | ');
+          tableText += rowText + '\n';
+          if (idx === 0 && row.querySelectorAll('th').length > 0) {
+            tableText += '-'.repeat(rowText.length) + '\n';
           }
         });
 
-        tableText += "==END TABLE==\n";
-        const pre = document.createElement("pre");
+        tableText += '==END TABLE==\n';
+        const pre = document.createElement('pre');
         pre.textContent = tableText;
         table.parentNode.replaceChild(pre, table);
       });
 
       return div.innerHTML
-        .replace(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gi, "\n=== $1 ===\n\n")
-        .replace(/<strong>(.*?)<\/strong>/gi, "*$1*")
-        .replace(/<em>(.*?)<\/em>/gi, "_$1_")
-        .replace(/<\/p>/g, "\n\n")
-        .replace(/<br\s*\/?>/g, "\n")
-        .replace(/<ul[^>]*>/g, "\n")
-        .replace(/<\/ul>/g, "\n")
-        .replace(/<ol[^>]*>/g, "\n")
-        .replace(/<\/ol>/g, "\n")
-        .replace(/<li>/g, "• ")
-        .replace(/<\/li>/g, "\n")
-        .replace(/<img[^>]*alt="([^"]*)"[^>]*>/gi, "[IMG: $1]")
-        .replace(/<img[^>]*>/gi, "[IMG]")
-        .replace(/<[^>]*>/g, "")
-        .replace(/&nbsp;/g, " ")
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
+        .replace(/<h[1-6][^>]*>(.*?)<\/h[1-6]>/gi, '\n=== $1 ===\n\n')
+        .replace(/<strong>(.*?)<\/strong>/gi, '*$1*')
+        .replace(/<em>(.*?)<\/em>/gi, '_$1_')
+        .replace(/<\/p>/g, '\n\n')
+        .replace(/<br\s*\/?>/g, '\n')
+        .replace(/<ul[^>]*>/g, '\n')
+        .replace(/<\/ul>/g, '\n')
+        .replace(/<ol[^>]*>/g, '\n')
+        .replace(/<\/ol>/g, '\n')
+        .replace(/<li>/g, '• ')
+        .replace(/<\/li>/g, '\n')
+        .replace(/<img[^>]*alt="([^"]*)"[^>]*>/gi, '[IMG: $1]')
+        .replace(/<img[^>]*>/gi, '[IMG]')
+        .replace(/<[^>]*>/g, '')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
-        .replace(/\n\s*\n\s*\n/g, "\n\n")
+        .replace(/\n\s*\n\s*\n/g, '\n\n')
         .trim();
     }
 
@@ -183,7 +183,7 @@
       // Format pilihan jawaban
       const optionsText = options
         .map((opt, i) => `${String.fromCharCode(97 + i)}. ${opt}`)
-        .join("\n");
+        .join('\n');
 
       // Prompt yang lebih ketat untuk meningkatkan akurasi
       const prompt = `
@@ -208,10 +208,10 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         while (retries > 0 && !geminiResult) {
           try {
             const response = await fetch(
-              `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+              `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`,
               {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                   contents: [{ parts: [{ text: prompt }] }],
                   generationConfig: {
@@ -245,7 +245,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
           2
         );
         const answerText =
-          geminiResult?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          geminiResult?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
         // Mencari jawaban dengan regex yang lebih ketat
         let answerLetter = null;
@@ -265,7 +265,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
         if (!answerLetter) {
           console.warn(
-            "AI response did not contain a clear answer. Logging full response:"
+            'AI response did not contain a clear answer. Logging full response:'
           );
           console.warn(answerText);
         }
@@ -278,7 +278,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         console.log(
           `Question #${questionIndex} processed in ${processingTime}s`
         );
-        console.log(`Answer: ${result.letter || "Unable to determine"}`);
+        console.log(`Answer: ${result.letter || 'Unable to determine'}`);
 
         return result;
       } catch (error) {
@@ -297,7 +297,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
       try {
         const keywords = question
           .toLowerCase()
-          .replace(/[.,?!;:()]/g, "")
+          .replace(/[.,?!;:()]/g, '')
           .split(/\s+/)
           .filter((word) => word.length > 3);
 
@@ -329,15 +329,15 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         const result = {
           letter: letter,
           explanation:
-            "Maaf, analisis mendalam tidak tersedia. Jawaban ini adalah perkiraan berdasarkan kata kunci dalam pertanyaan dan pilihan.",
+            'Maaf, analisis mendalam tidak tersedia. Jawaban ini adalah perkiraan berdasarkan kata kunci dalam pertanyaan dan pilihan.',
         };
 
         return result;
       } catch (e) {
         return {
-          letter: options.length > 0 ? "a" : null,
+          letter: options.length > 0 ? 'a' : null,
           explanation:
-            "Tidak dapat menganalisis. Memilih opsi pertama sebagai default.",
+            'Tidak dapat menganalisis. Memilih opsi pertama sebagai default.',
         };
       }
     }
@@ -388,11 +388,11 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         radioButton.checked = true;
 
         // Dispatch change event
-        const changeEvent = new Event("change", { bubbles: true });
+        const changeEvent = new Event('change', { bubbles: true });
         radioButton.dispatchEvent(changeEvent);
 
         // Dispatch click event
-        const clickEvent = new MouseEvent("click", {
+        const clickEvent = new MouseEvent('click', {
           bubbles: true,
           cancelable: true,
           view: window,
@@ -411,15 +411,15 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         'button:has(svg[data-testid="KeyboardTabIcon"])',
         'button.MuiButton-contained:has(span:contains("Next"))',
         'button.MuiButton-contained:has(span:contains("Selanjutnya"))',
-        "button.next-button",
+        'button.next-button',
         'button[type="submit"]',
         'input[type="button"][value="Next"]',
         // More generic selectors
-        "button.btn-primary:not(:disabled)",
+        'button.btn-primary:not(:disabled)',
         'button:contains("Next"):not(:disabled)',
         'button:contains("Selanjutnya"):not(:disabled)',
         // Additional selectors
-        "button.css-1hw9j7s",
+        'button.css-1hw9j7s',
         '[aria-label="next"]',
         '.MuiButtonBase-root:contains("Next")',
       ];
@@ -454,7 +454,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
       // Cek toggle auto_finish_quiz sebelum klik otomatis tombol Selesai Quiz
       const autoFinishEnabled =
-        localStorage.getItem("auto_finish_quiz") === "true";
+        localStorage.getItem('auto_finish_quiz') === 'true';
 
       if (!autoFinishEnabled) {
         // Jika toggle tidak aktif, tambahkan delay random 2-3 menit untuk humanize
@@ -466,7 +466,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         );
 
         setTimeout(() => {
-          console.log("Delay selesai, melanjutkan auto finish quiz...");
+          console.log('Delay selesai, melanjutkan auto finish quiz...');
           // Panggil fungsi ini lagi setelah delay
           clickNextButton();
         }, randomDelay);
@@ -483,7 +483,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
               !selesaiButton.disabled &&
               selesaiButton.offsetParent !== null
             ) {
-              console.log("Found Selesai Quiz button, clicking...");
+              console.log('Found Selesai Quiz button, clicking...');
               selesaiButton.click();
 
               // Start watching for the second "Ya" button after clicking Selesai Quiz
@@ -494,7 +494,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
                       .querySelector(
                         'button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary svg[data-testid="ThumbUpOffAltRoundedIcon"]'
                       )
-                      ?.closest("button");
+                      ?.closest('button');
 
                     if (confirmButton) {
                       console.log(
@@ -504,7 +504,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
                       obs.disconnect();
                     }
                   } catch (error) {
-                    console.debug("Selector check in progress...");
+                    console.debug('Selector check in progress...');
                   }
                 });
 
@@ -521,7 +521,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
                     .querySelector(
                       'button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary svg[data-testid="ThumbUpOffAltRoundedIcon"]'
                     )
-                    ?.closest("button");
+                    ?.closest('button');
 
                   if (confirmButton) {
                     console.log(
@@ -531,7 +531,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
                     observer.disconnect();
                   }
                 } catch (error) {
-                  console.debug("Initial selector check in progress...");
+                  console.debug('Initial selector check in progress...');
                 }
               }, 500); // Small delay to ensure the confirmation dialog has time to appear
 
@@ -549,7 +549,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
     // Check if all answers are ready and answer questions sequentially
     function sequentiallyAnswerAllQuestions() {
       if (
-        !document.getElementById("auto-answer")?.checked ||
+        !document.getElementById('auto-answer')?.checked ||
         !allQuestionsAnswered
       )
         return;
@@ -578,7 +578,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
         if (selected) {
           // If auto-next is enabled, click next button after a short delay
-          if (document.getElementById("auto-next")?.checked) {
+          if (document.getElementById('auto-next')?.checked) {
             setTimeout(() => {
               if (clickNextButton()) {
                 // Reset no-next-button counter if next button was found
@@ -593,7 +593,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
                 if (noNextButtonCount >= 2) {
                   // If no next button found twice in a row
                   console.log(
-                    "No next button found twice, trying to finish quiz..."
+                    'No next button found twice, trying to finish quiz...'
                   );
                   // Try to click Selesai Quiz button multiple times to ensure it's clicked
                   for (let i = 0; i < 3; i++) {
@@ -620,14 +620,14 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
       processNextQuestion();
     }
 
-    const localStorageData = localStorage.getItem("access");
-    if (!localStorageData) throw new Error("Token akses tidak ditemukan");
+    const localStorageData = localStorage.getItem('access');
+    if (!localStorageData) throw new Error('Token akses tidak ditemukan');
 
     let accessData;
     try {
       accessData = JSON.parse(localStorageData);
     } catch (e) {
-      throw new Error("Error parsing data token");
+      throw new Error('Error parsing data token');
     }
 
     if (
@@ -635,11 +635,11 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
       accessData.length === 0 ||
       !accessData[0].token
     ) {
-      throw new Error("Struktur token tidak valid");
+      throw new Error('Struktur token tidak valid');
     }
 
     const token = accessData[0].token;
-    const quizId = window.location.href.split("/").pop();
+    const quizId = window.location.href.split('/').pop();
     const apiUrl = `https://mentari.unpam.ac.id/api/quiz/soal/${quizId}`;
 
     const popup = createPopup();
@@ -649,21 +649,21 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
       '<div style="width:60px;height:60px;margin:0 auto 15px;background:#2a2a2a;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #333;">' +
       '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
       '<path d="M12 2v8M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h8M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>' +
-      "</svg>" +
-      "</div>" +
+      '</svg>' +
+      '</div>' +
       '<div style="font-size:16px;font-weight:500;color:#4CAF50;margin-bottom:8px;text-shadow:0 2px 4px rgba(0,0,0,0.2);">Memuat Quiz</div>' +
       '<div style="color:#999;font-size:13px;line-height:1.4;max-width:280px;margin:0 auto;">Mohon tunggu sebentar...</div>' +
-      "</div>" +
+      '</div>' +
       '<div style="width:100%;height:4px;background:#2a2a2a;border-radius:2px;overflow:hidden;position:relative;">' +
       '<div id="load-progress" style="position:absolute;top:0;left:0;width:30%;height:100%;background:#4CAF50;animation:pulse 1.5s ease-in-out infinite;"></div>' +
-      "</div>" +
-      "<style>" +
-      "@keyframes pulse {" +
-      "0% { transform: translateX(-100%); }" +
-      "100% { transform: translateX(400%); }" +
-      "}" +
-      "</style>" +
-      "</div>";
+      '</div>' +
+      '<style>' +
+      '@keyframes pulse {' +
+      '0% { transform: translateX(-100%); }' +
+      '100% { transform: translateX(400%); }' +
+      '}' +
+      '</style>' +
+      '</div>';
 
     const processedQuestions = new Set();
     const questionData = new Map();
@@ -674,13 +674,13 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
     async function fetchAndProcess() {
       try {
         const response = await fetch(apiUrl, {
-          method: "GET",
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           // Add cache control to prevent caching
-          cache: "no-store",
+          cache: 'no-store',
         });
 
         if (!response.ok) {
@@ -747,7 +747,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
         await processQuiz(data);
       } catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
         popup.content.innerHTML = `
           <div style="text-align:center;padding:20px;">
             <div style="margin-bottom:15px;position:relative;">
@@ -779,7 +779,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
     // Modify the processQuiz function to gather all answers first
     async function processQuiz(quizData) {
-      const isFirstRun = !popup.content.querySelector("#answers-container");
+      const isFirstRun = !popup.content.querySelector('#answers-container');
 
       if (isFirstRun) {
         popup.content.innerHTML = `
@@ -801,9 +801,9 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
     `;
       }
 
-      const progressText = document.getElementById("progress-text");
-      const progressBar = document.getElementById("progress-bar");
-      const answersContainer = document.getElementById("answers-container");
+      const progressText = document.getElementById('progress-text');
+      const progressBar = document.getElementById('progress-bar');
+      const answersContainer = document.getElementById('answers-container');
 
       if (!isFirstRun) {
         questionData.forEach((data, questionId) => {
@@ -840,19 +840,19 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
           quizData.data.length
         }`;
 
-        const questionItem = document.createElement("div");
+        const questionItem = document.createElement('div');
         questionItem.dataset.questionId = question.id;
         questionItem.style =
-          "padding:8px 12px;margin-bottom:8px;border-radius:6px;background-color:#2a2a2a;position:relative;border-left:3px solid #333;transition:all 0.2s ease;";
+          'padding:8px 12px;margin-bottom:8px;border-radius:6px;background-color:#2a2a2a;position:relative;border-left:3px solid #333;transition:all 0.2s ease;';
         questionItem.innerHTML = `<small>${
           i + 1
         }. <span style="color:#ffcc5c;">Mencari jawaban...</span></small>`;
         answersContainer.appendChild(questionItem);
 
-        const title = cleanText(question.judul || "");
-        const desc = cleanText(question.deskripsi || "");
-        let fullQuestion = title ? `${title}\n\n` : "";
-        fullQuestion += desc ? `${desc}` : "";
+        const title = cleanText(question.judul || '');
+        const desc = cleanText(question.deskripsi || '');
+        let fullQuestion = title ? `${title}\n\n` : '';
+        fullQuestion += desc ? `${desc}` : '';
 
         const options = (question.list_jawaban || []).map((j) =>
           cleanText(j.jawaban)
@@ -924,28 +924,28 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
       if (answeredQuestions === quizData.data.length && !allQuestionsAnswered) {
         allQuestionsAnswered = true;
         progressText.textContent =
-          "✅ Semua jawaban ditemukan! Mulai menjawab...";
-        progressText.style.color = "#4CAF50";
+          '✅ Semua jawaban ditemukan! Mulai menjawab...';
+        progressText.style.color = '#4CAF50';
 
         // Automatically start answering questions
-        if (document.getElementById("auto-answer")?.checked) {
+        if (document.getElementById('auto-answer')?.checked) {
           setTimeout(() => sequentiallyAnswerAllQuestions(), 100);
         }
       } else {
-        progressBar.style.width = "100%";
+        progressBar.style.width = '100%';
         const progressPercent = Math.round(
           (answeredQuestions / quizData.data.length) * 100
         );
         progressText.textContent = `${progressPercent}% (${answeredQuestions}/${quizData.data.length}) jawaban ditemukan`;
-        progressText.style.color = newQuestionsFound ? "#4CAF50" : "#aaa";
+        progressText.style.color = newQuestionsFound ? '#4CAF50' : '#aaa';
       }
     }
 
     function createQuestionElement(data) {
-      const questionItem = document.createElement("div");
+      const questionItem = document.createElement('div');
       questionItem.dataset.questionId = data.id;
       questionItem.style =
-        "padding:8px 12px;margin-bottom:8px;border-radius:6px;background-color:#2a2a2a;position:relative;border-left:3px solid #333;transition:all 0.2s ease;";
+        'padding:8px 12px;margin-bottom:8px;border-radius:6px;background-color:#2a2a2a;position:relative;border-left:3px solid #333;transition:all 0.2s ease;';
 
       updateQuestionElement(questionItem, data);
       return questionItem;
@@ -956,9 +956,9 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
       if (answer) {
         const answerIndex = answer.charCodeAt(0) - 97;
-        const answerText = data.options[answerIndex] || "Opsi tidak valid";
+        const answerText = data.options[answerIndex] || 'Opsi tidak valid';
 
-        element.style.borderLeftColor = "#4CAF50";
+        element.style.borderLeftColor = '#4CAF50';
         element.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center;">
             <div style="flex-grow:1;overflow:hidden;">
@@ -968,7 +968,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
               <span style="color:#999;margin-left:6px;overflow:hidden;text-overflow:ellipsis;max-width:100%;display:inline-block;vertical-align:middle;">${answerText.substring(
                 0,
                 40
-              )}${answerText.length > 40 ? "..." : ""}</span>
+              )}${answerText.length > 40 ? '...' : ''}</span>
             </div>
             <div style="display:none;align-items:center;">
               <button class="apply-answer" data-index="${
@@ -979,29 +979,29 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
           </div>
         `;
 
-        const applyButton = element.querySelector(".apply-answer");
-        applyButton.addEventListener("click", () => {
+        const applyButton = element.querySelector('.apply-answer');
+        applyButton.addEventListener('click', () => {
           const index = parseInt(applyButton.dataset.index);
           const letter = applyButton.dataset.letter;
           if (
             selectRadioAnswer(index, letter) &&
-            document.getElementById("auto-next")?.checked
+            document.getElementById('auto-next')?.checked
           ) {
             setTimeout(() => clickNextButton(), 500);
           }
         });
 
-        const infoButton = element.querySelector(".info-button");
-        infoButton.addEventListener("mouseenter", () => {
-          element.style.backgroundColor = "#333";
-          element.querySelector(".info-button").style.backgroundColor =
-            "#4CAF50";
-          element.querySelector(".info-button").style.color = "#fff";
+        const infoButton = element.querySelector('.info-button');
+        infoButton.addEventListener('mouseenter', () => {
+          element.style.backgroundColor = '#333';
+          element.querySelector('.info-button').style.backgroundColor =
+            '#4CAF50';
+          element.querySelector('.info-button').style.color = '#fff';
 
-          const tooltip = document.createElement("div");
-          tooltip.className = "q-tooltip explanation-tooltip";
+          const tooltip = document.createElement('div');
+          tooltip.className = 'q-tooltip explanation-tooltip';
           tooltip.style =
-            "position:absolute;left:105%;top:0;transform:translateX(0);width:350px;padding:12px;background:#2a2a2a;border:1px solid #333;border-radius:6px;box-shadow:0 3px 8px rgba(0,0,0,0.3);z-index:10001;font-size:12px;white-space:pre-wrap;max-height:400px;overflow-y:auto;line-height:1.4;";
+            'position:absolute;left:105%;top:0;transform:translateX(0);width:350px;padding:12px;background:#2a2a2a;border:1px solid #333;border-radius:6px;box-shadow:0 3px 8px rgba(0,0,0,0.3);z-index:10001;font-size:12px;white-space:pre-wrap;max-height:400px;overflow-y:auto;line-height:1.4;';
 
           tooltip.innerHTML = `
             <div style="margin-bottom:8px;font-weight:500;color:#4CAF50;">Pertanyaan:</div>
@@ -1013,16 +1013,16 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
                   (opt, idx) =>
                     `<div style="${
                       answer === String.fromCharCode(97 + idx)
-                        ? "color:#4CAF50;font-weight:500;"
-                        : "color:#999;"
+                        ? 'color:#4CAF50;font-weight:500;'
+                        : 'color:#999;'
                     }">${String.fromCharCode(97 + idx)}. ${opt}</div>`
                 )
-                .join("")}
+                .join('')}
             </div>
             <div style="margin-bottom:8px;font-weight:500;color:#4CAF50;">Penjelasan:</div>
             <div style="color:#999;">${data.explanation.replace(
               /\n/g,
-              "<br>"
+              '<br>'
             )}</div>
           `;
 
@@ -1030,27 +1030,27 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
           const rect = tooltip.getBoundingClientRect();
           if (rect.right > window.innerWidth) {
-            tooltip.style.left = "auto";
-            tooltip.style.right = "105%";
-            tooltip.style.transform = "translateX(0)";
+            tooltip.style.left = 'auto';
+            tooltip.style.right = '105%';
+            tooltip.style.transform = 'translateX(0)';
           }
 
           if (rect.bottom > window.innerHeight) {
             const overflow = rect.bottom - window.innerHeight;
             tooltip.style.top = `${Math.max(0, rect.top - overflow - 20)}px`;
-            tooltip.style.transform = "translateX(0)";
+            tooltip.style.transform = 'translateX(0)';
           }
         });
 
-        infoButton.addEventListener("mouseleave", () => {
-          element.style.backgroundColor = "#2a2a2a";
-          element.querySelector(".info-button").style.backgroundColor = "#333";
-          element.querySelector(".info-button").style.color = "#999";
-          const tooltip = document.querySelector(".explanation-tooltip");
+        infoButton.addEventListener('mouseleave', () => {
+          element.style.backgroundColor = '#2a2a2a';
+          element.querySelector('.info-button').style.backgroundColor = '#333';
+          element.querySelector('.info-button').style.color = '#999';
+          const tooltip = document.querySelector('.explanation-tooltip');
           if (tooltip) tooltip.remove();
         });
       } else {
-        element.style.borderLeftColor = "#f44336";
+        element.style.borderLeftColor = '#f44336';
         element.innerHTML = `<div style="color:#fff;">${data.number}. <span style="color:#f44336;font-weight:500;">Error</span></div>`;
       }
     }
@@ -1068,11 +1068,11 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
       // Create a more aggressive observer for the start button
       const startObserver = new MutationObserver((mutations, obs) => {
         const startButton = document.querySelector(
-          "button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary"
+          'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary'
         );
 
-        if (startButton && startButton.textContent.includes("Mulai Quiz")) {
-          console.log("Found Mulai Quiz button, clicking...");
+        if (startButton && startButton.textContent.includes('Mulai Quiz')) {
+          console.log('Found Mulai Quiz button, clicking...');
           startButton.click();
           obs.disconnect();
 
@@ -1093,11 +1093,11 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
 
       // Also check immediately
       const startButton = document.querySelector(
-        "button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary"
+        'button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary'
       );
 
-      if (startButton && startButton.textContent.includes("Mulai Quiz")) {
-        console.log("Mulai Quiz button already present, clicking...");
+      if (startButton && startButton.textContent.includes('Mulai Quiz')) {
+        console.log('Mulai Quiz button already present, clicking...');
         startButton.click();
         startObserver.disconnect();
 
@@ -1119,7 +1119,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
             .querySelector(
               'button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary svg[data-testid="ThumbUpOffAltRoundedIcon"]'
             )
-            ?.closest("button");
+            ?.closest('button');
 
           if (confirmButton && !hasClickedFirst) {
             // First appearance only
@@ -1130,7 +1130,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
           }
         } catch (error) {
           // Silently handle any selector errors
-          console.debug("Selector check in progress...");
+          console.debug('Selector check in progress...');
         }
       });
 
@@ -1148,7 +1148,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
           .querySelector(
             'button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary svg[data-testid="ThumbUpOffAltRoundedIcon"]'
           )
-          ?.closest("button");
+          ?.closest('button');
 
         if (confirmButton && !hasClickedFirst) {
           console.log(
@@ -1160,7 +1160,7 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
         }
       } catch (error) {
         // Silently handle any selector errors
-        console.debug("Initial selector check in progress...");
+        console.debug('Initial selector check in progress...');
       }
     }
 
@@ -1168,15 +1168,15 @@ Format jawaban akhir sebagai: "Jawaban: [huruf]"`;
     autoStartQuiz();
     setupAutoConfirm();
   } catch (error) {
-    const errorMsg = document.createElement("div");
+    const errorMsg = document.createElement('div');
     errorMsg.style =
-      "position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#2a2a2a;color:#fff;padding:12px 20px;border-radius:6px;box-shadow:0 3px 15px rgba(0,0,0,0.3);z-index:10000;font-family:system-ui;border:1px solid #333;";
+      'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#2a2a2a;color:#fff;padding:12px 20px;border-radius:6px;box-shadow:0 3px 15px rgba(0,0,0,0.3);z-index:10000;font-family:system-ui;border:1px solid #333;';
     errorMsg.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><span style="color:#f44336;">❌</span><span>${error.message}</span></div>`;
     document.body.appendChild(errorMsg);
 
     setTimeout(() => {
-      errorMsg.style.opacity = "0";
-      errorMsg.style.transition = "opacity 0.5s ease";
+      errorMsg.style.opacity = '0';
+      errorMsg.style.transition = 'opacity 0.5s ease';
       setTimeout(() => errorMsg.remove(), 500);
     }, 5000);
   }
